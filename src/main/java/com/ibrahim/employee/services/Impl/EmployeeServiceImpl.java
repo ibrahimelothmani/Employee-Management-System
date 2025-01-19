@@ -2,6 +2,7 @@ package com.ibrahim.employee.services.Impl;
 
 import com.ibrahim.employee.domain.dto.EmployeeDto;
 import com.ibrahim.employee.domain.entities.Employee;
+import com.ibrahim.employee.exception.ResourceNotFoundException;
 import com.ibrahim.employee.mapper.EmployeeMapper;
 import com.ibrahim.employee.repositories.EmployeeRepository;
 import com.ibrahim.employee.services.EmployeeService;
@@ -20,4 +21,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee savedEmployee = employeeRepository.save(employee);
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
+
+    @Override
+    public EmployeeDto getEmployeeById(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "The Employee is Not Found with the given ID: " + employeeId));
+
+        return EmployeeMapper.mapToEmployeeDto(employee);
+    }
+
 }
