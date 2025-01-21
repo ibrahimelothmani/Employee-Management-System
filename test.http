@@ -7,3 +7,18 @@ Content-Type: application/json
   "lastName": "Othmani",
   "email": "bro@gmail.com"
 }
+
+
+###
+GET http://localhost:8080/api/employees/1
+
+
+###
+GET http://localhost:8080/api/employees
+
+
+###
+PUT http://localhost:8080/api/employees/1
+
+###
+DELETE http://localhost:8080/api/employees/1
