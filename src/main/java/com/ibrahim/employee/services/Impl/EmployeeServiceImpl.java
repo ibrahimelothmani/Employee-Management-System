@@ -6,6 +6,7 @@ import com.ibrahim.employee.exception.ResourceNotFoundException;
 import com.ibrahim.employee.mapper.EmployeeMapper;
 import com.ibrahim.employee.repositories.EmployeeRepository;
 import com.ibrahim.employee.services.EmployeeService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream().map(EmployeeMapper::mapToEmployeeDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public EmployeeDto updateEmployee(Long employeeId, EmployeeDto employeeDto) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "The Employee is Not Found with the given ID: " + employeeId));
+        employee.setFirstName(employeeDto.getFirstName());
+        employee.setLastName(employeeDto.getLastName());
+        employee.setEmail(employeeDto.getEmail());
+
+        Employee updatedEmployeeObject = employeeRepository.save(employee);
+
+        return EmployeeMapper.mapToEmployeeDto(updatedEmployeeObject);
     }
 
 }
