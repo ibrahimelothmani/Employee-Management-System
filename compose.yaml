@@ -4,7 +4,7 @@ services:
     environment:
       - 'POSTGRES_DB=employee'
       - 'POSTGRES_PASSWORD=root'
-      - 'POSTGRES_USER=root'
+      - 'POSTGRES_USER=postgres'
     ports:
       - '5432:5432'
 
