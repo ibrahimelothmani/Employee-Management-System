@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/employees")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 
 public class EmployeeController {
 

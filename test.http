@@ -3,7 +3,7 @@ POST http://localhost:8080/api/employees
 Content-Type: application/json
 
 {
-  "firstName": "yassine",
+  "firstName": "ibrahim",
   "lastName": "Othmani",
   "email": "yass@gmail.com"
 }
