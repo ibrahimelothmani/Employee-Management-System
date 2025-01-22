@@ -3,9 +3,9 @@ POST http://localhost:8080/api/employees
 Content-Type: application/json
 
 {
-  "firstName": "Ibrahim",
+  "firstName": "yassine",
   "lastName": "Othmani",
-  "email": "bro@gmail.com"
+  "email": "yass@gmail.com"
 }
 
 
