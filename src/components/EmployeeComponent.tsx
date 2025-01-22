@@ -2,40 +2,29 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createEmployee } from '../services/EmployeeService'
 import '../App.css'
+
 const EmployeeComponent = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
 
-    const navigate = useNavigate();
-    
-    // Handle input change
-    // const handleFirstNameChange = (e: { target: { value: SetStateAction<string> } }) => setFirstName(e.target.value)
-    // const handleLastNameChange = (e: { target: { value: SetStateAction<string> } }) => setLastName(e.target.value)
-    // const handleEmailChange = (e: { target: { value: SetStateAction<string> } }) => setEmail(e.target.value)
-    
-    // Handle form submission
-    interface Employee {
-        id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-    }
+    const navigate = useNavigate()
 
-    const saveEmployee = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        const employee: Employee = {
-            id: 0, // or any default value
-            firstName: firstName,
-            lastName: lastName,
-            email: email
+    // Handle form submission
+    const saveEmployee = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Prevent default form submission behavior
+
+        const employee = {
+            id: 0, // Assuming 0 or any default value for new employee
+            firstName,
+            lastName,
+            email
         }
-        console.log(employee)
 
         createEmployee(employee).then(() => {
-            navigate('/employees')
+            navigate('/employees') // Redirect after successful creation
         }).catch((error) => {
-            console.error(error)
+            console.error("Error creating employee:", error)
         })
     }
 
@@ -45,35 +34,39 @@ const EmployeeComponent = () => {
                 <div className="card">
                     <h3 className="text-center">Add Employee</h3>
                     <div className="card-body">
-                        <form className='card'>
+                        <form onSubmit={saveEmployee} className='card'>
                             <div className="form-group">
                                 <label htmlFor="firstName">First Name:</label>
-                                <input type="text" className="form-control"
-                                    value={firstName} id="firstName"
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={firstName}
+                                    id="firstName"
                                     placeholder="Enter First Name"
                                     onChange={(e) => setFirstName(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="lastName">Last Name:</label>
-                                <input type="text"
+                                <input
+                                    type="text"
                                     className="form-control"
                                     value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
                                     id="lastName"
-                                    placeholder="Enter Last Name" />
+                                    placeholder="Enter Last Name"
+                                    onChange={(e) => setLastName(e.target.value)} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="email">Email:</label>
-                                <input type="email"
+                                <input
+                                    type="email"
                                     className="form-control"
                                     value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
                                     id="email"
-                                    placeholder="Enter Email" />
+                                    placeholder="Enter Email"
+                                    onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <button type="submit" className="btn btn-primary mt-4" onClick={saveEmployee}>Submit</button>
+                            <button type="submit" className="btn btn-primary mt-4">Submit</button>
                         </form>
-
                     </div>
                 </div>
             </div>
