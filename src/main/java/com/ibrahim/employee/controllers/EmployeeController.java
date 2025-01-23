@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/employees")
 @CrossOrigin(origins = "http://localhost:3000")
 
@@ -18,7 +17,11 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-//    Add Employee
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    //    Add Employee
     @PostMapping
     public ResponseEntity<EmployeeDto> createdEmployee(@RequestBody EmployeeDto employeeDto){
         EmployeeDto savedEmployee = employeeService.createEmployee(employeeDto);
