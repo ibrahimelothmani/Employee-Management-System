@@ -2,7 +2,6 @@ package com.ibrahim.employee.controllers;
 
 import com.ibrahim.employee.domain.dto.EmployeeDto;
 import com.ibrahim.employee.services.EmployeeService;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 
 public class EmployeeController {
 

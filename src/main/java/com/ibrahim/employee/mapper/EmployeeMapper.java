@@ -2,9 +2,7 @@ package com.ibrahim.employee.mapper;
 
 import com.ibrahim.employee.domain.dto.EmployeeDto;
 import com.ibrahim.employee.domain.entities.Employee;
-import org.mapstruct.Mapper;
 
-@Mapper
 public class EmployeeMapper {
 
     public static EmployeeDto mapToEmployeeDto(Employee employee){
