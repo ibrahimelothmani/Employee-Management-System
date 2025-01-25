@@ -1,27 +1,27 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { createEmployee } from '../services/EmployeeService'
 import '../App.css'
-
+import EmployeeService from '../services/EmployeeService'
+import { Employee } from '../Entities/Employee'
 const EmployeeComponent = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
-
     const navigate = useNavigate()
 
     // Handle form submission
-    const saveEmployee = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Prevent default form submission behavior
+    const saveEmployee = () => { //e: React.FormEvent<HTMLFormElement>
+        // e.preventDefault(); // Prevent default form submission behavior
 
-        const employee = {
-            id: 0, // Assuming 0 or any default value for new employee
-            firstName,
-            lastName,
-            email
-        }
+        const employee: Employee = {
+            id: 0,
+            firstName: firstName,
+            lastName: lastName,
+            email: email
 
-        createEmployee(employee).then(() => {
+        };
+
+        EmployeeService.createEmployee(employee).then(() => {
             navigate('/employees') // Redirect after successful creation
         }).catch((error) => {
             console.error("Error creating employee:", error)
