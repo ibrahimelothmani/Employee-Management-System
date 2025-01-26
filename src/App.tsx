@@ -5,7 +5,7 @@ import ListEmployeeComponent from './components/ListEmployeeComponent'
 import './App.css'
 import EmployeeComponent from './components/EmployeeComponent'
 import Login from './pages/Login'
-import Register from './pages/Register'
+// import Register from './pages/Register'
 import { useState, useEffect } from 'react'
 import AuthService from './services/AuthService'
 import SidebarComponent from './components/SidebarComponent'
@@ -76,7 +76,7 @@ function App() {
                     <Login onLoginSuccess={handleLogin} />
                 }
               />
-              <Route path="/register" element={<Register />} />
+              {/* <Route path="/register" element={<Register />} /> */}
 
               {/* Protected routes */}
               <Route

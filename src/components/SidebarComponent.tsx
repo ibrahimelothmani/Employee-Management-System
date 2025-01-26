@@ -14,7 +14,7 @@ const SidebarComponent = ({ handleLogout }: SidebarProps) => {
         <li className="nav-item mb-2">
             <Link to="/admins" className="nav-link text-white">
               <i className="bi bi-people me-2"></i>
-              List ADMINS
+              ADMINS
             </Link>
           </li>
           <li className="nav-item mb-2">
