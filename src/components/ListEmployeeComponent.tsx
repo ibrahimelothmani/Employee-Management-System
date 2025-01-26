@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react'
-import EmployeeService from '../services/EmployeeService'
-import '../App.css'
-import { useNavigate, Link } from 'react-router-dom'
-import { Employee } from '../Entities/Employee'
-
+import { useEffect, useState } from 'react';
+import EmployeeService from '../services/EmployeeService';
+import '../App.css';
+import { useNavigate, Link } from 'react-router-dom';
+import { Employee } from '../Entities/Employee';
 
 const ListEmployeeComponent = () => {
-
-    const [employees, setEmployees] = useState<Employee[]>([])
-    const [loading, setLoading] = useState(true)
+    const [employees, setEmployees] = useState<Employee[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);  // Error state to handle fetch failures
 
     const navigate = useNavigate();
 
@@ -20,40 +19,35 @@ const ListEmployeeComponent = () => {
         setLoading(true);
         EmployeeService.getEmployees()
             .then((data) => {
-                console.log("Fetched employees:", data); // Log the fetched data
                 setEmployees(data);
                 setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching employees:", error);
+                setError('Failed to load employees');
                 setLoading(false);
             });
     }
 
     const addNewEmployee = () => {
-        navigate('/add-employee')
-    }
-
+        navigate('/add-employee');
+    };
 
     const deleteEmp = (employeeId: number) => {
-        EmployeeService.deleteEmployee(employeeId).then(() => {
-            listEmployees();
-        }).catch((error) => {
-            console.error('Error deleting employee:', error);
-        });
-    }
+        EmployeeService.deleteEmployee(employeeId)
+            .then(() => {
+                setEmployees(prev => prev.filter(emp => emp.id !== employeeId));  // Optimistic update
+            })
+            .catch((error) => {
+                console.error('Error deleting employee:', error);
+            });
+    };
 
     if (loading) {
         return (
             <div className="d-flex justify-content-center align-items-center" style={{ height: '80vh' }}>
                 <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
-                    <button 
-                        onClick={addNewEmployee} 
-                        className="btn btn-primary"
-                    >
-                        Add New Employee
-                    </button>
                 </div>
             </div>
         );
@@ -61,9 +55,13 @@ const ListEmployeeComponent = () => {
 
     return (
         <div className="container-fluid p-4">
+            {error && <div className="alert alert-danger">{error}</div>} {/* Show error if any */}
             <div className="card shadow-sm">
                 <div className="card-header bg-primary bg-gradient d-flex justify-content-between align-items-center py-3">
                     <h4 className="text-white text-center mb-0">Employees List</h4>
+                    <button onClick={addNewEmployee} className="btn btn-primary">
+                        Add New Employee
+                    </button>
                 </div>
                 <div className="card-body p-0">
                     <div className="table-responsive">
@@ -87,7 +85,7 @@ const ListEmployeeComponent = () => {
                                             <td>{employee.email}</td>
                                             <td>
                                                 <div className="d-flex justify-content-center gap-2">
-                                                    <Link 
+                                                    <Link
                                                         to={`/edit-employee/${employee.id}`}
                                                         className="btn btn-outline-primary btn-sm"
                                                     >
@@ -96,8 +94,8 @@ const ListEmployeeComponent = () => {
                                                     <button
                                                         onClick={() => deleteEmp(employee.id)}
                                                         className="btn btn-outline-danger btn-sm"
-                                                    >DELETE
-                                                        <i className="bi bi-trash"></i>
+                                                    >
+                                                        DELETE <i className="bi bi-trash"></i>
                                                     </button>
                                                 </div>
                                             </td>
@@ -119,7 +117,7 @@ const ListEmployeeComponent = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ListEmployeeComponent
+export default ListEmployeeComponent;
