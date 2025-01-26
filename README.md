@@ -1,8 +1,6 @@
 I / THE ARCHITECTURE OF OUR APP :
 
-![architecture](https://github.com/user-attachments/assets/0c9e81dd-6c7a-46f4-88f4-2c4b4e89615e)
+![Plan Architecture USING KEYCLOAK drawio](https://github.com/user-attachments/assets/afd05abc-63cb-47ae-904e-bc90dfac3add)
 
-II / USING KEYCLOAK
 
-![Plan Architecture using Keycloak](https://github.com/user-attachments/assets/2519fc9f-c8a8-4c6d-868a-8a5625209317)
 
