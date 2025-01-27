@@ -36,6 +36,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        // Allow access to Swagger UI and API docs
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/index.html").permitAll()
                         // Endpoint access permissions
                         .requestMatchers(HttpMethod.POST, "/api/employees/**").permitAll()  // Public POST
                         .requestMatchers(HttpMethod.GET, "/api/employees/{id}").authenticated()  // Authenticated GET
