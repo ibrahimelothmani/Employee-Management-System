@@ -34,7 +34,7 @@ const EmployeeComponent = () => {
                 <div className="card">
                     <h3 className="text-center">Add Employee</h3>
                     <div className="card-body">
-                        <form onSubmit={saveEmployee} className='card'>
+                        <form className='card'>
                             <div className="form-group">
                                 <label htmlFor="firstName">First Name:</label>
                                 <input
@@ -65,7 +65,7 @@ const EmployeeComponent = () => {
                                     placeholder="Enter Email"
                                     onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <button type="submit" className="btn btn-primary mt-4">Submit</button>
+                            <button type="submit" onClick={saveEmployee} className="btn btn-primary mt-4">Submit</button>
                         </form>
                     </div>
                 </div>
